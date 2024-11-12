@@ -48,9 +48,7 @@ async function run () {
         { id: 'time_since_tare' },
         { id: 'raw' },
         { id: 'raw_weight' },
-        { id: 'raw_error' },
-        { id: 'compensated_weight' },
-        { id: 'compensated_error' }
+        { id: 'raw_error' }
       ],
       append: true
     })
@@ -74,9 +72,7 @@ async function run () {
           time_since_tare: entries[0],
           raw: entries[1],
           raw_weight: entries[2],
-          raw_error: entries[3],
-          compensated_weight: entries[4],
-          compensated_error: entries[5]
+          raw_error: entries[3]
         }])
       }
     })
