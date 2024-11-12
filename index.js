@@ -46,10 +46,11 @@ async function run () {
       path,
       header: [
         { id: 'time_since_tare' },
-        { id: 'temperature' },
         { id: 'raw' },
-        { id: 'calculated_weight' },
-        { id: 'error' }
+        { id: 'raw_weight' },
+        { id: 'raw_error' },
+        { id: 'compensated_weight' },
+        { id: 'compensated_error' }
       ],
       append: true
     })
@@ -71,10 +72,11 @@ async function run () {
       if (isLogging) {
         csvWriter.writeRecords([{
           time_since_tare: entries[0],
-          temperature: entries[1],
-          raw: entries[2],
-          calculated_weight: entries[3],
-          error: entries[4]
+          raw: entries[1],
+          raw_weight: entries[2],
+          raw_error: entries[3],
+          compensated_weight: entries[4],
+          compensated_error: entries[5]
         }])
       }
     })
