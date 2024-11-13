@@ -39,17 +39,22 @@ async function defineFileName () {
 async function run () {
   try {
     let isLogging = false
-    // Configure readline for command-line input
+
     const filename = await defineFileName()
     const path = `data/${filename}.csv`
+    const header = [
+      { id: 'time_since_tare', title: 'time_since_tare' },
+      { id: 'raw', title: 'raw' },
+      { id: 'raw_weight', title: 'raw_weight' },
+      { id: 'raw_error', title: 'raw_error' }
+    ]
+    const lineOne = {}
+    header.forEach(v => {
+      lineOne[v.id] = v.title
+    })
     const csvWriter = createCsvWriter({
       path,
-      header: [
-        { id: 'time_since_tare' },
-        { id: 'raw' },
-        { id: 'raw_weight' },
-        { id: 'raw_error' }
-      ],
+      header,
       append: true
     })
 
@@ -87,11 +92,12 @@ async function run () {
       output: process.stdout
     })
 
-    rl.on('line', (input) => {
+    rl.on('line', async (input) => {
       console.log(`Received: ${input}`)
       const cmd = input.trim()
       if (cmd.includes('s')) {
         console.log('Started logging!')
+        await csvWriter.writeRecords([lineOne])
         isLogging = true
       }
       port.write(cmd)
